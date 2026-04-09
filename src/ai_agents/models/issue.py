@@ -1,20 +1,14 @@
 from typing import List, Optional
+from pydantic import BaseModel
 
 
-class Issue:
-    def __init__(
-        self,
-        key: str,
-        summary: str,
-        description: Optional[str],
-        comments: List[str],
-    ):
-        self.key = key
-        self.summary = summary
-        self.description = description
-        self.comments = comments
+class Issue(BaseModel):
+    key: str
+    summary: str
+    description: Optional[str] = None
+    comments: List[str] = []
 
-    def __str__(self):
+    def __str__(self) -> str:
         return (
             f"Issue (key={self.key}, "
             f"summary={self.summary}, "

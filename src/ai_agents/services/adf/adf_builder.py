@@ -8,17 +8,23 @@ class ADFBuilder:
     def clear(self):
         self.blocks.clear()
 
-    def text(self, text: str) -> Self:
-        self.blocks.append({"type": "text", "text": text})
+    @staticmethod
+    def _text_node(text: str) -> Dict:
+        return {"type": "text", "text": text}
 
+    @staticmethod
+    def _paragraph_node(text: str) -> Dict:
+        return {
+            "type": "paragraph",
+            "content": [ADFBuilder._text_node(text)]
+        }
+
+    def text(self, text: str) -> Self:
+        self.blocks.append(self._text_node(text))
         return self
 
     def paragraph(self, text: str) -> Self:
-        self.blocks.append({
-            "type": "paragraph",
-            "content": [ADFBuilder.text(text)]
-        })
-
+        self.blocks.append(self._paragraph_node(text))
         return self
 
     def heading(
@@ -29,7 +35,7 @@ class ADFBuilder:
         self.blocks.append({
             "type": "heading",
             "attrs": {"level": level},
-            "content": [ADFBuilder.text(text)]
+            "content": [self._text_node(text)]
         })
 
         return self
@@ -40,7 +46,7 @@ class ADFBuilder:
             "content": [
                 {
                     "type": "listItem",
-                    "content": [ADFBuilder.paragraph(item)]
+                    "content": [self._paragraph_node(item)]
                 }
                 for item in items
             ]
@@ -54,7 +60,7 @@ class ADFBuilder:
             "content": [
                 {
                     "type": "listItem",
-                    "content": [ADFBuilder.paragraph(item)]
+                    "content": [self._paragraph_node(item)]
                 }
                 for item in items
             ]

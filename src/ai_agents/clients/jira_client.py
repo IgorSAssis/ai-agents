@@ -35,7 +35,7 @@ class JiraClient:
             headers=headers
         )
 
-        if response.status_code != 200:
+        if response.status_code not in (200, 201):
             raise Exception(
                 f"Error while add comment in issue: {
                     response.status_code} - {response.text}"

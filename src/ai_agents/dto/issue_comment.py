@@ -1,11 +1,8 @@
-from typing import List
+from typing import List, Literal, Optional
+from pydantic import BaseModel
 
 
-class IssueCommentDTO:
-    def __init__(
-        self,
-        section: str,
-        items: List[str]
-    ):
-        self.section = section
-        self.items = items
+class IssueCommentDTO(BaseModel):
+    type: Literal["heading", "paragraph", "bulletList", "orderedList"]
+    text: Optional[str] = None
+    items: Optional[List[str]] = None
