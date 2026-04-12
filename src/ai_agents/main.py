@@ -26,7 +26,8 @@ def add_issue_comment(
 
     The comment is composed of a list of blocks. Each block has a "type" and
     the corresponding content field (
-        "text" for heading/paragraph, "items" for lists
+        "text" for heading/paragraph, "items" for lists,
+        "code" for code blocks
     ).
 
     Supported block types:
@@ -34,6 +35,7 @@ def add_issue_comment(
       - "paragraph"    → plain text paragraph (uses "text")
       - "bulletList"   → unordered list (uses "items")
       - "orderedList"  → numbered list (uses "items")
+      - "codeBlock"    → code snippet (uses "code", optional "language")
 
     Args:
         issue_key: issue key (e.g., PROJ-123)
@@ -42,7 +44,8 @@ def add_issue_comment(
             { "type": "heading",     "text": "Analysis Summary" },
             { "type": "paragraph",   "text": "The analysis was completed successfully." },
             { "type": "bulletList",  "items": ["Finding A", "Finding B", "Finding C"] },
-            { "type": "orderedList", "items": ["Step 1: Review", "Step 2: Approve", "Step 3: Deploy"] }
+            { "type": "orderedList", "items": ["Step 1: Review", "Step 2: Approve", "Step 3: Deploy"] },
+            { "type": "codeBlock",   "code": "print('hello world')", "language": "python" }
         ]
 
     Returns:

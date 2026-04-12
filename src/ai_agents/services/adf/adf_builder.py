@@ -1,4 +1,4 @@
-from typing import Dict, List, Self
+from typing import Any, Dict, List, Optional, Self
 
 
 class ADFBuilder:
@@ -66,6 +66,22 @@ class ADFBuilder:
             ]
         })
 
+        return self
+
+    def code_block(
+            self,
+            code: str,
+            language: Optional[str] = None
+    ) -> Self:
+        block: Dict[str, Any] = {
+            "type": "codeBlock",
+            "content": [self._text_node(code)]
+        }
+
+        if language:
+            block["attrs"] = {"language": language}
+
+        self.blocks.append(block)
         return self
 
     def build(self) -> Dict:

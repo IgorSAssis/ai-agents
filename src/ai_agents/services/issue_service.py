@@ -45,6 +45,8 @@ class IssueService:
                 self.builder.bullet_list(b.items) if b.items else None,
             "orderedList": lambda b:
                 self.builder.ordered_list(b.items) if b.items else None,
+            "codeBlock": lambda b:
+                self.builder.code_block(b.code, b.language) if b.code else None,
         }
         return handlers.get(block_type, lambda b: None)
 
